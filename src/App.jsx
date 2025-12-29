@@ -6,22 +6,18 @@ const App = () => {
   const [quote, setQuote] = useState(null);
 
   const calculateQuote = (data) => {
-    let base = 1000;
-
-    if (data.propertyType === 'casa') base += 500;
-    if (data.squareMeters > 100) base += 300;
-    if (data.age < 25) base += 200;
-
-    setQuote({
-      basico: base,
-      premium: base * 1.5,
-      full: base * 2
-    });
+    let base = 2500;
+    const planes = [
+      { nombre: "Básico", precio: base, promoAnual: base*12*0.9, coberturas: ["Incendio", "Responsabilidad civil"] },
+      { nombre: "Estándar", precio: base*1.25, promoAnual: base*1.25*12*0.9, coberturas: ["Incendio", "Robo", "Responsabilidad civil"] },
+      { nombre: "Premium", precio: base*1.5, promoAnual: base*1.5*12*0.9, coberturas: ["Todo lo anterior", "Valor de reposición", "Cobertura de objetos de valor"] }
+    ];
+    setQuote({ estimado: base, planes });
   };
 
   return (
-    <div>
-      <h1>Cotizador de Seguros</h1>
+    <div className="app-container">
+      <h1>Cotizador de Seguros de Hogar</h1>
       <UserForm onSubmit={calculateQuote} />
       {quote && <CoverageOptions quote={quote} />}
     </div>
